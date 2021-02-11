@@ -1,5 +1,5 @@
 import {MachineForm} from "../../components/CreateMachineForm";
-import Machine from "../../containers/admin/MachinePage/Machine";
+import {Machine} from "../../models";
 
 interface MachineService {
     createMachine(machineData: MachineForm): Promise<Machine>;

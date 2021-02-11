@@ -1,7 +1,7 @@
 import {MachineForm} from "../../components/CreateMachineForm";
 import axios from 'axios';
 import MachineService from "./MachineService";
-import Machine from "../../containers/admin/MachinePage/Machine";
+import {Machine} from "../../models";
 
 const SERVICE_URL = "http://localhost:8000";
 

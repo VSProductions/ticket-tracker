@@ -1,11 +1,8 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
+import {ManufacturerForm} from "../models";
 
-interface ManufacturerForm  {
-    manufacturerName: string
-    manufacturerDescription: string
-}
 interface Props {
     onFormSubmit: (formData: ManufacturerForm) => void
 }
@@ -13,12 +10,17 @@ const ManufacturerCreateForm:  React.FunctionComponent<Props> = (props: Props) =
 
     const [manufacturerName, setManufacturerName] = useState("");
     const [manufacturerDescription, setManufacturerDescription] = useState("");
+    const manufacturerNameInput = useRef<HTMLInputElement>(null);
 
     const handleFormSubmit = () => {
         props.onFormSubmit({
             manufacturerName: manufacturerName,
             manufacturerDescription: manufacturerDescription
         });
+
+        setManufacturerName("")
+        setManufacturerDescription("")
+        manufacturerNameInput.current?.focus()
     }
 
     return (
@@ -26,6 +28,7 @@ const ManufacturerCreateForm:  React.FunctionComponent<Props> = (props: Props) =
             <Form.Group>
                 <Form.Label>Manufacturer Name</Form.Label>
                 <Form.Control type={"text"}
+                              ref={manufacturerNameInput}
                               autoComplete={"off"}
                               id={"manufacturerName"}
                               placeholder={"Enter manufacturer name..."}
