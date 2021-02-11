@@ -43,6 +43,14 @@ const CreateMachineForm: React.FunctionComponent<Props> = (props: Props) => {
                     onChange={(e) => setMachineDescription(e.currentTarget.value)}
                 />
             </Form.Group>
+            <Form.Group>
+                <Form.Label>Manufacturer</Form.Label>
+                <Form.Control as={"select"} multiple>
+                    <option>Hitachi</option>
+                    <option>Philips</option>
+                    <option>Sony</option>
+                </Form.Control>
+            </Form.Group>
             <Button variant={"primary"} onClick={handleFormSubmit}>Create</Button>
         </Form>
     );

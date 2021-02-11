@@ -1,26 +1,25 @@
 import React from 'react';
 import './App.css';
-import CreateMachineForm from "./components/CreateMachineForm";
-import CreateManufacturerForm from "./components/CreateManufacturerForm";
-import {Col, Container, Row} from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
+import {HashRouter as Router, Link, Route} from "react-router-dom";
+import MachinePage from "./containers/admin/MachinePage/MachinePage";
 
 const App: React.FunctionComponent = () => {
 
-    const handleFormSubmit = (machineForm: any) => {
-        console.log("Form Data: ", machineForm);
-    }
-
     return (
-        <Container>
-            <Row>
-                <Col>
-                    <CreateMachineForm onFormSubmit={handleFormSubmit}/>
-                    <br/>
-                    <hr/>
-                    <CreateManufacturerForm onFormSubmit={handleFormSubmit} />
-                </Col>
-            </Row>
-        </Container>
+        <Router>
+            <Navbar>
+                <Link to={"/"}><Navbar.Brand href="/">Ticket Tracker</Navbar.Brand></Link>
+                <Navbar.Collapse className={"justify-content-between"}>
+                    <Nav className={"mr-auto"}>
+                        <Link to={"/machine/create"}><Nav.Link href={"/machine/create"}>Create Machine</Nav.Link></Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+
+            <Route path={"/machine/create"} exact component={() => <MachinePage />} />
+        </Router>
+
     );
 }
 
