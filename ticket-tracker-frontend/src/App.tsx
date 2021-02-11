@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import CreateMachineForm, {MachineForm} from "./components/CreateMachineForm";
+import CreateMachineForm from "./components/CreateMachineForm";
 import CreateManufacturerForm from "./components/CreateManufacturerForm";
+import {Col, Container, Row} from "react-bootstrap";
 
 const App: React.FunctionComponent = () => {
 
@@ -10,16 +11,16 @@ const App: React.FunctionComponent = () => {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col">
+        <Container>
+            <Row>
+                <Col>
                     <CreateMachineForm onFormSubmit={handleFormSubmit}/>
                     <br/>
                     <hr/>
                     <CreateManufacturerForm onFormSubmit={handleFormSubmit} />
-                </div>
-            </div>
-        </div>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

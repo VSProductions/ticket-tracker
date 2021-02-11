@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {useState} from "react";
+import {useState} from 'react';
+import {Button, Form} from "react-bootstrap";
 
 interface ManufacturerForm  {
     manufacturerName: string
@@ -21,28 +22,26 @@ const ManufacturerCreateForm:  React.FunctionComponent<Props> = (props: Props) =
     }
 
     return (
-        <form>
-
-            <div className="form-group">
-                <label htmlFor="manufacturerName">Manufacturer Name</label>
-                <input type="text"
-                       id="manufacturerName"
-                       className="form-control"
-                       placeholder="Enter manufacturer Name..."
-                       value={manufacturerName}
-                       onChange={(e) => setManufacturerName(e.currentTarget.value)}
-                />
-                <label htmlFor="manufacturerDescription">Manufacturer Description</label>
-                <textarea name="manufacturerDescription"
-                          id="manufacturerDescription"
-                          value={manufacturerDescription}
-                          onChange={(e) => setManufacturerDescription(e.currentTarget.value)}
-                          className={"form-control"}>
-                </textarea>
-            </div>
-
-            <button type={"button"} className={"btn btn-primary"} onClick={handleFormSubmit}>Create</button>
-        </form>
+        <Form>
+            <Form.Group>
+                <Form.Label>Manufacturer Name</Form.Label>
+                <Form.Control type={"text"}
+                              autoComplete={"off"}
+                              id={"manufacturerName"}
+                              placeholder={"Enter manufacturer name..."}
+                              value={manufacturerName}
+                              onChange={(e) => setManufacturerName(e.currentTarget.value)}/>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Description</Form.Label>
+                <Form.Control as={"textarea"}
+                              rows={3}
+                              id={"manufacturerDescription"}
+                              value={manufacturerDescription}
+                              onChange={(e) => setManufacturerDescription(e.currentTarget.value)} />
+            </Form.Group>
+            <Button variant={"primary"} onClick={handleFormSubmit}>Create</Button>
+        </Form>
     );
 }
 
