@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useRef, useState} from 'react';
+import {Button, Form} from "react-bootstrap";
+import {Manufacturer} from "../models";
 
 export interface MachineForm {
     machineId?: string
@@ -8,42 +10,59 @@ export interface MachineForm {
 }
 interface Props {
     onFormSubmit: (formData: MachineForm) => void
+    manufacturers: Array<Manufacturer>
 }
 const CreateMachineForm: React.FunctionComponent<Props> = (props: Props) => {
 
     const [machineName, setMachineName] = useState("");
     const [machineDescription, setMachineDescription] = useState("");
+    const machineNameInput = useRef<HTMLInputElement>(null);
 
     function handleFormSubmit() {
         props.onFormSubmit({
             machineName: machineName,
             machineDescription: machineDescription
         });
+
+        setMachineName("")
+        setMachineDescription("")
+        machineNameInput.current?.focus();
     }
 
     return (
-        <form>
+        <Form>
+            <Form.Group>
+                <Form.Label>Machine Name</Form.Label>
+                <Form.Control type={"text"}
+                              ref={machineNameInput}
+                              autoComplete={"off"}
+                              id={"machineName"}
+                              placeholder={"Enter machine name..."}
+                              value={machineName}
+                              onChange={(e) => setMachineName(e.currentTarget.value)} />
 
-            <div className="form-group">
-                <label htmlFor="machineName">Machine Name</label>
-                <input type="text"
-                       id="machineName"
-                       className="form-control"
-                       placeholder="Enter Machine Name..."
-                       value={machineName}
-                       onChange={(e) => setMachineName(e.currentTarget.value)}
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Description</Form.Label>
+                <Form.Control as={"textarea"}
+                    rows={3}
+                    id={"machineDescription"}
+                    value={machineDescription}
+                    onChange={(e) => setMachineDescription(e.currentTarget.value)}
                 />
-                <label htmlFor="machineDescription">Machine Description</label>
-                <textarea name="machineDescription"
-                          id="machineDescription"
-                          value={machineDescription}
-                          onChange={(e) => setMachineDescription(e.currentTarget.value)}
-                          className={"form-control"}>
-                </textarea>
-            </div>
-
-            <button type={"button"} className={"btn btn-primary"} onClick={handleFormSubmit}>Create</button>
-        </form>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Manufacturer</Form.Label>
+                <Form.Control as={"select"} multiple>
+                    {
+                        props.manufacturers.map(manufacturer => (
+                            <option key={manufacturer.id}>{manufacturer.name}</option>
+                        ))
+                    }
+                </Form.Control>
+            </Form.Group>
+            <Button variant={"primary"} onClick={handleFormSubmit}>Create</Button>
+        </Form>
     );
 
 }
