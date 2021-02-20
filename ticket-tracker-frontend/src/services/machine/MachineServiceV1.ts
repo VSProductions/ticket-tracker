@@ -10,10 +10,19 @@ class MachineServiceV1 implements MachineService {
     public async createMachine(machineData: MachineForm): Promise<Machine> {
         let response = await axios.post(`${SERVICE_URL}/api/v1/machine`, JSON.stringify(machineData));
         if (201 === response.status) {
-
+            
         }
 
         throw Error(`Error creating machine in the backend! Status Code: ${response.status}`);
+    }
+
+    public async getAllMachines(): Promise<Array<Machine>> {
+        let response = await axios.get(`${SERVICE_URL}/api/v1/machine`);
+        if (200 === response.status) {
+             let data = response.data;
+             console.log(data);
+        }
+        return [];
     }
 }
 
