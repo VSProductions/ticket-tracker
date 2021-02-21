@@ -1,8 +1,8 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import CreateMachineForm from "../../../components/CreateMachineForm";
 import CreateManufacturerForm from "../../../components/CreateManufacturerForm";
-import {useState} from "react";
 import {Machine, Manufacturer, ManufacturerForm} from "../../../models";
 import ListMachines from "../../../components/ListMachines";
 import ServiceFactory from "../ServiceFactory";

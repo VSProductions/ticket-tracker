@@ -1,18 +1,21 @@
 import * as React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
-import {User} from "../../../models";
 import UserRegistrationForm from "../../../components/UserRegistrationForm";
+import AddUserRole from "../../../components/AddUserRole";
 
 
 const UserPage: React.FunctionComponent = () => {
 
-    const handleFormSubmit = (user:User) => {
+    const handleFormSubmit = (user:any) => {
         console.log(user);
     }
 
     return <>
         <Container>
             <Row>
+                <Col>
+                    <AddUserRole onFormSubmit={handleFormSubmit}/>
+                </Col>
                 <Col>
                     <UserRegistrationForm onFormSubmit={handleFormSubmit} />
                 </Col>

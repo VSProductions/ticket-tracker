@@ -31,3 +31,8 @@ export interface User {
     email: string
     mobile: string
 }
+
+export interface UserMeta {
+    username: string
+    roles: Array<Role>
+}
