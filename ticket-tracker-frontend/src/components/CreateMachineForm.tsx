@@ -1,13 +1,8 @@
 import * as React from 'react';
 import {useRef, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
-import {Manufacturer} from "../models";
+import {MachineForm, Manufacturer} from "../models";
 
-export interface MachineForm {
-    machineId?: string
-    machineName: string
-    machineDescription: string
-}
 interface Props {
     onFormSubmit: (formData: MachineForm) => void
     manufacturers: Array<Manufacturer>
@@ -17,13 +12,25 @@ const CreateMachineForm: React.FunctionComponent<Props> = (props: Props) => {
     const [machineName, setMachineName] = useState("");
     const [machineDescription, setMachineDescription] = useState("");
     const machineNameInput = useRef<HTMLInputElement>(null);
+    const manufacturer = useRef<HTMLSelectElement>(null);
 
     function handleFormSubmit() {
+        let manufacturerIds:Array<String> = [];
+        for (let i = 0; i < manufacturer.current!.selectedOptions.length; i++) {
+            manufacturerIds.push(manufacturer.current!.selectedOptions[i].getAttribute("data-manufacturer-id")!);
+        }
+
         props.onFormSubmit({
             machineName: machineName,
-            machineDescription: machineDescription
+            machineDescription: machineDescription,
+            manufacturerIds: manufacturerIds
         });
 
+        resetForm();
+    }
+
+    const resetForm = () => {
+        // reset form
         setMachineName("")
         setMachineDescription("")
         machineNameInput.current?.focus();
@@ -53,10 +60,10 @@ const CreateMachineForm: React.FunctionComponent<Props> = (props: Props) => {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Manufacturer</Form.Label>
-                <Form.Control as={"select"} multiple>
+                <Form.Control ref={manufacturer} as={"select"} multiple>
                     {
                         props.manufacturers.map(manufacturer => (
-                            <option key={manufacturer.id}>{manufacturer.name}</option>
+                            <option key={manufacturer.id} data-manufacturer-id={manufacturer.id}>{manufacturer.name}</option>
                         ))
                     }
                 </Form.Control>

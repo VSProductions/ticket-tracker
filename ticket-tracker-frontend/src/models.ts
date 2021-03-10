@@ -9,6 +9,13 @@ export interface Manufacturer {
     description: string
 }
 
+export interface MachineForm {
+    machineId?: string
+    machineName: string
+    machineDescription: string,
+    manufacturerIds: Array<String>
+}
+
 export interface Machine {
     id: string
     name: string

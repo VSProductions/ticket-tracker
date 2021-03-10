@@ -13,22 +13,21 @@ const MachinePage: React.FunctionComponent  = () => {
     const [manufacturers, setManufacturers] = useState<Array<Manufacturer>>([]);
     const [machines, setMachines] = useState<Array<Machine>>([]);
 
-    const handleFormSubmit = (machineForm: any) => {
+    const handleMachineFormSubmit = async (machineForm: any) => {
         console.log("Form Data: ", machineForm);
+        let machine = await ServiceFactory.getMachineService().createMachine(machineForm);
+        setMachines([...machines, machine]);
     }
 
-    const handleManufacturerFormSubmit = (manufacturerForm: ManufacturerForm) => {
-        setManufacturers([...manufacturers,
-            {
-                id: "random",
-                name: manufacturerForm.manufacturerName,
-                description: manufacturerForm.manufacturerDescription
-            }])
+    const handleManufacturerFormSubmit = async (manufacturerForm: ManufacturerForm) => {
+        let manufacturer = await ServiceFactory.getMachineService().createManufacturer(manufacturerForm);
+        setManufacturers([...manufacturers, manufacturer])
     }
 
     useState(async () => {
         let machineService:MachineService = ServiceFactory.getMachineService();
         setMachines(await machineService.getAllMachines());
+        setManufacturers(await machineService.getAllManufacturers());
     })
 
     return <Container>
@@ -40,7 +39,7 @@ const MachinePage: React.FunctionComponent  = () => {
                 <CreateManufacturerForm onFormSubmit={handleManufacturerFormSubmit} />
             </Col>
             <Col>
-                <CreateMachineForm onFormSubmit={handleFormSubmit} manufacturers={manufacturers} />
+                <CreateMachineForm onFormSubmit={handleMachineFormSubmit} manufacturers={manufacturers} />
             </Col>
         </Row>
     </Container>

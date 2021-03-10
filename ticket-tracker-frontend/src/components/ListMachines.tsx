@@ -12,15 +12,18 @@ const ListMachines: React.FunctionComponent<Props> = (props:Props) => {
         {
             props.machines.length === 0 ?
                 <Alert variant={"info"}>There are no machines in the database.</Alert> :
-                <ListGroup>
-                    {
-                        props.machines.map(machine => (
-                            <ListGroup.Item>
-                                {machine.name}
-                            </ListGroup.Item>
-                        ))
-                    }
-                </ListGroup>
+                <>
+                    <h3>Available Machines</h3>
+                    <ListGroup>
+                        {
+                            props.machines.map(machine => (
+                                <ListGroup.Item>
+                                    {machine.name}
+                                </ListGroup.Item>
+                            ))
+                        }
+                    </ListGroup>
+                </>
         }
     </>
 }
