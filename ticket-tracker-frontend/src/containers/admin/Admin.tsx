@@ -14,7 +14,6 @@ const Admin: React.FunctionComponent = () => {
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
-
     </>
 }
 

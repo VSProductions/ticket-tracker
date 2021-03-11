@@ -17,8 +17,8 @@ const ListUsers:React.FunctionComponent<Props> = (props:Props) => {
                     <h3>Registered Users</h3>
                     <ListGroup>
                         {
-                            users.map(user =>
-                                <ListGroup.Item>
+                            users.map((user, index) =>
+                                <ListGroup.Item key={index}>
                                     <p className={"no-padding no-margin"}>{user.firstName} {user.lastName}</p>
                                     <p className={"text-muted small"}>{user.email}</p>
                                 </ListGroup.Item>
