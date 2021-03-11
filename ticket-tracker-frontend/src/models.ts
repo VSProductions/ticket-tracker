@@ -52,3 +52,8 @@ export interface UserMeta {
     username: string
     roles: Array<Role>
 }
+
+export interface LoginFormFields {
+    username: string
+    password: string
+}

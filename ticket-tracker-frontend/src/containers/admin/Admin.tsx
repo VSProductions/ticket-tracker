@@ -1,8 +1,5 @@
 import * as React from 'react';
 import {Nav, Navbar} from "react-bootstrap";
-import {Route, Link} from "react-router-dom";
-import MachinePage from "./MachinePage/MachinePage";
-import UserPage from "./UserPage/UserPage";
 
 const Admin: React.FunctionComponent = () => {
     return <>
