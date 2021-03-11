@@ -29,8 +29,17 @@ export interface Role {
     name: string
 }
 
+export interface UserRegistrationForm {
+    username: string
+    password: string
+    firstName: string
+    lastName: string
+    email: string
+    mobile: string
+}
+
 export interface User {
-    id?: string
+    id: string
     username: string
     password: string
     firstName: string

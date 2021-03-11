@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
-import {User} from "../models";
+import {UserRegistrationForm} from "../models";
 
 interface Props {
-    onFormSubmit: (user:User) => void
+    onFormSubmit: (user:UserRegistrationForm) => void
 }
-const UserRegistrationForm:React.FunctionComponent<Props> = (props:Props) => {
+const CreateUserForm:React.FunctionComponent<Props> = (props:Props) => {
 
-    const [user, setUser] = useState<User>({
+    const [user, setUser] = useState<UserRegistrationForm>({
         username: "",
         password: "",
         firstName: "",
@@ -88,4 +88,4 @@ const UserRegistrationForm:React.FunctionComponent<Props> = (props:Props) => {
     </>
 }
 
-export default UserRegistrationForm;
+export default CreateUserForm;
