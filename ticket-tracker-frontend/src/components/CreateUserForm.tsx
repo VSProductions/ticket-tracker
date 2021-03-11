@@ -8,21 +8,24 @@ interface Props {
 }
 const CreateUserForm:React.FunctionComponent<Props> = (props:Props) => {
 
-    const [user, setUser] = useState<UserRegistrationForm>({
+    const initialState = {
         username: "",
         password: "",
         firstName: "",
         lastName: "",
         mobile: "",
         email: "",
-    });
+    };
+
+    const [user, setUser] = useState<UserRegistrationForm>(initialState);
 
     const handleChange = (name: string, value: string) => {
         setUser({...user, [name]: value})
     }
 
-    const handleOnClick = () => {
+    const handleFormSubmit = () => {
         props.onFormSubmit(user);
+        setUser(initialState);
     }
 
     return <>
@@ -83,7 +86,7 @@ const CreateUserForm:React.FunctionComponent<Props> = (props:Props) => {
                     value={user.mobile}
                 />
             </Form.Group>
-            <Button variant={"primary"} onClick={handleOnClick}>Register User</Button>
+            <Button variant={"primary"} onClick={handleFormSubmit}>Register User</Button>
         </Form>
     </>
 }
