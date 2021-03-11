@@ -57,3 +57,10 @@ export interface LoginFormFields {
     username: string
     password: string
 }
+
+export interface ComplaintFormFields {
+    title: string
+    machine: string
+    description: string
+    severity: string
+}

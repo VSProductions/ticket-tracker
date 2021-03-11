@@ -8,7 +8,7 @@ const EmployeePortal:React.FunctionComponent = () => {
 
     return <>
         <Navbar>
-            <Navbar.Brand href="/#/">Ticket Tracker</Navbar.Brand>
+            <Navbar.Brand href="/#/portal">Ticket Tracker</Navbar.Brand>
             <Navbar.Collapse className={"justify-content-between"}>
                 <Nav className={"mr-auto"}>
                 </Nav>
