@@ -60,7 +60,17 @@ export interface LoginFormFields {
 
 export interface ComplaintFormFields {
     title: string
-    machine: string
+    machineId: string
     description: string
     severity: string
+}
+
+export interface Complaint {
+    id: string
+    title: string
+    machineId: string
+    description: string
+    severity: string
+    createdAt: string
+    modifiedAt: string
 }

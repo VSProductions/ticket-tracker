@@ -4,7 +4,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import AddUserRole from "../../../components/AddUserRole";
 import {User, UserRegistrationForm as UserForm} from "../../../models";
 import CreateUserForm from "../../../components/CreateUserForm";
-import ServiceFactory from "../ServiceFactory";
+import ServiceFactory from "../../../services/ServiceFactory";
 import '../../../global-style.css';
 import ListUsers from "../../../components/ListUsers";
 

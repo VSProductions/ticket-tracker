@@ -1,6 +1,6 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {Button, Card, Form} from "react-bootstrap";
-import {useState} from "react";
 import {ComplaintFormFields} from "../models";
 
 interface Props {
@@ -24,7 +24,7 @@ const ComplaintForm:React.FunctionComponent<Props> = (props:Props) => {
         props.onFormSubmit({
             title: title,
             description: description,
-            machine: machine,
+            machineId: machine,
             severity: severity
         });
 

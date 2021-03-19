@@ -7,6 +7,7 @@ import UserPage from "./containers/admin/UserPage/UserPage";
 import Main from "./containers/main/Main";
 import EmployeePortal from "./containers/portal/EmployeePortal";
 import AddNewComplaintPage from "./containers/portal/complaint/AddNewComplaintPage";
+import ListComplaintPage from "./containers/portal/complaint/ListComplaintPage";
 
 const App: React.FunctionComponent = () => {
 
@@ -17,7 +18,10 @@ const App: React.FunctionComponent = () => {
             </Route>
             <Route path={"/portal"}>
                 <EmployeePortal />
-                <Route key={1} path={"/portal/new-complaint"}>
+                <Route key={1} exact path={"/portal"}>
+                    <ListComplaintPage />
+                </Route>
+                <Route key={2} path={"/portal/new-complaint"}>
                     <AddNewComplaintPage />
                 </Route>
             </Route>

@@ -17,6 +17,13 @@ const EmployeePortal:React.FunctionComponent = () => {
         <Container>
             <Row>
                 <Col>
+                    <Button variant={"primary"}
+                            onClick={() => history.push("/portal")}>
+                        All Complaints
+                    </Button>
+                    <hr/>
+                </Col>
+                <Col>
                     <Button variant={"danger"}
                             onClick={() => history.push("/portal/new-complaint")}>
                         File New Complaint

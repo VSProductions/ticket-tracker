@@ -5,7 +5,7 @@ import CreateMachineForm from "../../../components/CreateMachineForm";
 import CreateManufacturerForm from "../../../components/CreateManufacturerForm";
 import {Machine, Manufacturer, ManufacturerForm} from "../../../models";
 import ListMachines from "../../../components/ListMachines";
-import ServiceFactory from "../ServiceFactory";
+import ServiceFactory from "../../../services/ServiceFactory";
 import MachineService from "../../../services/machine/MachineService";
 
 const MachinePage: React.FunctionComponent  = () => {
