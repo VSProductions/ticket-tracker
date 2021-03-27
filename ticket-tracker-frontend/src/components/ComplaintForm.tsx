@@ -1,34 +1,69 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {Button, Card, Form} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 import {ComplaintFormFields} from "../models";
+import Form from "react-jsonschema-form";
+import {JSONSchema6} from "json-schema";
 
 interface Props {
     onFormSubmit: (complaintForm:ComplaintFormFields) => void
 }
 const ComplaintForm:React.FunctionComponent<Props> = (props:Props) => {
 
-    const [title, setTitle] = useState("");
-    const [machine, setMachine] = useState("");
-    const [description, setDescription] = useState("");
-    const [severity, setSeverity] = useState("");
-
-    function resetForm() {
-        setTitle("");
-        setDescription("");
-        setSeverity("");
-        setMachine("");
+    const [complaintFormFields, setComplainFormFields] = useState<ComplaintFormFields>();
+    const handleFormSubmit = (complaintForm:any) => {
+        props.onFormSubmit(complaintForm.formData);
     }
 
-    const handleFormSubmit = () => {
-        props.onFormSubmit({
-            title: title,
-            description: description,
-            machineId: machine,
-            severity: severity
-        });
-
-        resetForm();
+    const complaintFormSchema:JSONSchema6 = {
+        type: "object",
+        required: ["title", "machineId", "description", "severity"],
+        properties: {
+            title: {
+                title: "Title",
+                type: "string"
+            },
+            machineId: {
+                title: "Faulty Machine",
+                type: "string",
+                oneOf: [
+                    {enum: ["X_RAY_ID"], title: "X-RAY"},
+                    {enum: ["MONITOR_ID"], title: "Monitor"},
+                    {enum: ["COMPUTER_ID"], title: "Computer"},
+                    {enum: ["PUMP_ID"], title: "Pump"},
+                ],
+            },
+            description: {
+                title: "Description",
+                type: "string"
+            },
+            severity: {
+                title: "Severity",
+                type: "string",
+                oneOf: [
+                    {enum: ["LOW"], title: "Low"},
+                    {enum: ["MEDIUM"], title: "Medium"},
+                    {enum: ["HIGH"], title: "High"},
+                ]
+            }
+        }
+    }
+    const complaintFormUISchema = {
+        title: {
+            "ui:placeholder": "Write a summary of the problem..."
+        },
+        machineId: {
+            "ui:widget": "select",
+            "ui:placeholder": "Choose Faulty Machine..."
+        },
+        description: {
+            "ui:widget": "textarea",
+            "ui:placeholder": "Explain the problem in as much detail as possible. This will help the technician to debug quickly..."
+        },
+        severity: {
+            "ui:widget": "select",
+            "ui:placeholder": "Choose Severity..."
+        }
     }
 
     return <>
@@ -37,45 +72,10 @@ const ComplaintForm:React.FunctionComponent<Props> = (props:Props) => {
                 <h3>File New Complaint</h3>
             </Card.Header>
             <Card.Body>
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control placeholder={"Summary of the complaint"}
-                                      value={title} onChange={(e) => setTitle(e.currentTarget.value)}/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Machine</Form.Label>
-                        <Form.Control as={"select"} value={machine}
-                                      onChange={(e) => setMachine(e.currentTarget.value)}>
-                            <option>X-Ray</option>
-                            <option>Monitor</option>
-                            <option>Computer</option>
-                            <option>Pump</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control as={"textarea"}
-                                      placeholder={"Be as detailed as possible..."}
-                                      value={description}
-                                      onChange={(e) => setDescription(e.currentTarget.value)}/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Severity</Form.Label>
-                        <Form.Control as={"select"} onChange={(e) => setSeverity(e.currentTarget.value)}>
-                            {
-                                [{id: "LOW", text: "Low"}, {id:"MEDIUM", text: "Medium"}, {id:"HIGH", text:"High"}, {id:"CRITICAL", text:"Critical"}]
-                                    .map(s => {
-                                        if (s.id === severity) {
-                                            return <option value={severity} selected>{s.text}</option>
-                                        } else {
-                                            return <option value={s.id}>{s.text}</option>
-                                        }
-                                    })
-                            }
-                        </Form.Control>
-                    </Form.Group>
-                    <Button variant={"primary"} onClick={handleFormSubmit}>Submit</Button>
+                <Form schema={complaintFormSchema}
+                      uiSchema={complaintFormUISchema}
+                      formData={complaintFormFields}
+                      onSubmit={handleFormSubmit}>
                 </Form>
             </Card.Body>
         </Card>

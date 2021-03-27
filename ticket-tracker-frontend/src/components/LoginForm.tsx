@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {Button, Card, Form} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import {LoginFormFields} from "../models";
+import Form from "react-jsonschema-form";
+import {JSONSchema6} from "json-schema";
 
 interface Props {
     formTitle: string
@@ -12,38 +14,38 @@ interface Props {
 }
 const LoginForm:React.FunctionComponent<Props> = (props:Props) => {
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [formData, setFormData] = useState<LoginFormFields>();
 
-    function resetForm() {
-        setUsername("");
-        setPassword("");
+    const loginSchema:JSONSchema6 = {
+        type: "object",
+        title: props.formTitle,
+        required: ["username", "password"],
+        properties: {
+            username: {
+                title: props.usernameTitle,
+                type: "string"
+            },
+            password: {
+                title: props.passwordTitle,
+                type: "string"
+            }
+        }
     }
 
-    const handleFormSubmit = () => {
-        props.onFormSubmit({username: username, password: password});
-        resetForm();
+    const loginUISchema = {
+        password: {
+            "ui:widget": "password"
+        }
+    }
+    const handleFormSubmit = (e:any) => {
+        props.onFormSubmit(formData!);
     }
 
     return <>
         <Card>
-            <Card.Header>
-                <h3>{props.formTitle}</h3>
-            </Card.Header>
             <Card.Body>
-                <Form>
-                    <Form.Group>
-                        <Form.Label>{props.usernameTitle}</Form.Label>
-                        <Form.Control value={username}
-                                      onChange={(e) => setUsername(e.currentTarget.value)} />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>{props.passwordTitle}</Form.Label>
-                        <Form.Control value={password}
-                                      type={"password"}
-                                      onChange={(e) => setPassword(e.currentTarget.value)} />
-                    </Form.Group>
-                    <Button variant={"primary"} onClick={handleFormSubmit}>{props.loginBtnTitle}</Button>
+                <Form schema={loginSchema} uiSchema={loginUISchema} formData={formData} onSubmit={handleFormSubmit}>
+                    <Button type={"submit"}>{props.loginBtnTitle}</Button>
                 </Form>
             </Card.Body>
         </Card>
