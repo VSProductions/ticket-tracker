@@ -18,9 +18,9 @@ class MachineViewSet(ModelViewSet):
 
     queryset = Machine.objects.all()
     serializer_class = MachineSerializer
-    lookup_field = "__all__"
+    lookup_field = "slug"
 
-    @action(detail=True, methods=["HEAD, GET, POST"])
+    @action(detail=True, methods=["HEAD", "GET", "POST"])
     def manufacturers(self, request, slug=None):
         machine = self.get_object()
         if request.method in ("HEAD", "GET"):

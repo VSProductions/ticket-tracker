@@ -1,25 +1,28 @@
 from django.db.models import (
     CharField,
     DateField,
+    DateTimeField,
     URLField,
     Model,
     ManyToManyField,
     SlugField,
     TextField,
-
 )
+from django_extensions.db.fields import AutoSlugField
 
 
 class Manufacturer(Model):
 
     name = CharField(max_length=31)
-    slug = SlugField(max_length=31)
-    created_at = DateField("date created")
-    modified_at = DateField("modified_at")
+    slug = AutoSlugField(
+        max_length=31,
+        populate_from=["name"]
+    )
+    created_at = DateTimeField(auto_now_add=True)
+    modified_at = DateTimeField(auto_now=True)
     description = TextField()
 
     class Meta:
-        get_latest_by = "founded_date"
         ordering = ["name"]
 
     def __str__(self):
@@ -29,14 +32,16 @@ class Manufacturer(Model):
 class Machine(Model):
 
     name = CharField(max_length=31)
-    slug = SlugField(max_length=31)
-    date_created = DateField("machine created on")
-    date_modified = DateField("machine modified on")
+    slug = AutoSlugField(
+        max_length=31,
+        populate_from=["name"]
+    )
+    date_created = DateTimeField(auto_now_add=True)
+    date_modified = DateTimeField(auto_now=True)
     description = TextField()
     manufacturers = ManyToManyField(Manufacturer)
 
     class Meta:
-        get_latest_by = "founded_date"
         ordering = ["name"]
 
     def __str__(self):
