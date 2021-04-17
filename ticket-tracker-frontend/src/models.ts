@@ -4,9 +4,12 @@ export interface ManufacturerForm  {
 }
 
 export interface Manufacturer {
-    id: string
+    url: string
+    slug: string
     name: string
     description: string
+    created_at: string
+    modified_at: string
 }
 
 export interface MachineForm {
@@ -17,11 +20,13 @@ export interface MachineForm {
 }
 
 export interface Machine {
-    id: string
+    url: string
+    slug: string
     name: string
     description: string
-    dateCreated: string
-    dateModified: string
+    manufacturers: Array<Manufacturer>
+    date_created: string
+    date_modified: string
 }
 
 export interface Role {

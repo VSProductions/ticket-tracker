@@ -63,7 +63,7 @@ const CreateMachineForm: React.FunctionComponent<Props> = (props: Props) => {
                 <Form.Control ref={manufacturer} as={"select"} multiple>
                     {
                         props.manufacturers.map(manufacturer => (
-                            <option key={manufacturer.id} data-manufacturer-id={manufacturer.id}>{manufacturer.name}</option>
+                            <option key={manufacturer.slug} data-manufacturer-id={manufacturer.slug}>{manufacturer.name}</option>
                         ))
                     }
                 </Form.Control>

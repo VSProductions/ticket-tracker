@@ -4,7 +4,6 @@ import UserService from "./user/UserService";
 import UserServiceV1 from "./user/UserServiceV1";
 import ComplaintService from "./complaints/ComplaintService";
 import ComplaintServiceV1 from "./complaints/ComplaintServiceV1";
-import LocalStorage from "./storage/LocalStorage";
 
 class ServiceFactory {
 
