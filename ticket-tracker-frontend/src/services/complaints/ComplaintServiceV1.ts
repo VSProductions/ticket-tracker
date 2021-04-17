@@ -14,7 +14,7 @@ class ComplaintServiceV1 implements ComplaintService {
     private readonly _COMPLAINTS_KEY = "complaints";
 
     public async fetchAll(): Promise<Array<Complaint>> {
-        return this.storage.read(this._COMPLAINTS_KEY)?? [];
+        return await this.storage.read(this._COMPLAINTS_KEY)?? [];
     }
 
     public async fetchById(complaintId: string): Promise<Complaint | undefined> {
@@ -33,7 +33,7 @@ class ComplaintServiceV1 implements ComplaintService {
             modifiedAt: moment().toISOString()
         }
         let complaints = await this.fetchAll();
-        this.storage.save(this._COMPLAINTS_KEY, [...complaints, complaint]);
+        await this.storage.save(this._COMPLAINTS_KEY, [...complaints, complaint]);
         return complaint;
     }
 

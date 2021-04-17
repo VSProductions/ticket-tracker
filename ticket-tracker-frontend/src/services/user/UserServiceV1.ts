@@ -20,12 +20,12 @@ class UserServiceV1 implements UserService {
             email: userRegistrationForm.email,
             mobile: userRegistrationForm.mobile
         }
-        this.storage.save("users", [...await this.getAllUsers(), newUser]);
+        await this.storage.save("users", [...await this.getAllUsers(), newUser]);
         return newUser;
     }
 
     public async getAllUsers(): Promise<Array<User>> {
-        return this.storage.read("users")?? [];
+        return await this.storage.read("users")?? [];
     }
 
 }
