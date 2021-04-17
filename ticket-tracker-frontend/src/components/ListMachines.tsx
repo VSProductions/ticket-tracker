@@ -16,8 +16,8 @@ const ListMachines: React.FunctionComponent<Props> = (props:Props) => {
                     <h3>Available Machines</h3>
                     <ListGroup>
                         {
-                            props.machines.map(machine => (
-                                <ListGroup.Item>
+                            props.machines.map((machine, index) => (
+                                <ListGroup.Item key={index}>
                                     {machine.name}
                                 </ListGroup.Item>
                             ))

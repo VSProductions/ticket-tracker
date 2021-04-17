@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {HashRouter as Router, Route} from "react-router-dom";
 import Admin from "./containers/admin/Admin";
@@ -9,8 +9,13 @@ import EmployeePortal from "./containers/portal/EmployeePortal";
 import AddNewComplaintPage from "./containers/portal/complaint/AddNewComplaintPage";
 import ListComplaintPage from "./containers/portal/complaint/ListComplaintPage";
 import SingleComplaintPage from "./containers/portal/complaint/SingleComplaintPage";
+import SyncOrchestrator from "./services/sync/SyncOrchestrator";
 
 const App: React.FunctionComponent = () => {
+
+    useEffect(() => {
+        new SyncOrchestrator().sync();
+    }, []);
 
     return (
         <Router>
